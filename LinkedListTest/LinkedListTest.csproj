@@ -7,8 +7,8 @@
     <ProjectGuid>{63EFD37F-7542-46DD-AC08-3FB63FA49591}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SaberTest</RootNamespace>
-    <AssemblyName>SaberTest</AssemblyName>
+    <RootNamespace>LinkedListTest</RootNamespace>
+    <AssemblyName>LinkedListTest</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
