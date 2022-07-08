@@ -6,41 +6,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79952013-926a-4b15-815a-e9fd80020403" name="Changes" comment="Some change">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LinkedListTest/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LinkedListTest/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LinkedListTest/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Test/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Test/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Test/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Test/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Test/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Test/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinkedListTest/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinkedListTest/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest.sln" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/ListNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/ListNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/ListRandom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/ListRandom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/Properties/AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/SaberTest.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/LinkedListTest.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/SaberTest.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/LinkedListTest.csproj.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/app.config" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedListTest/app.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/bin/Debug/SaberTest.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/bin/Debug/SaberTest.exe.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/bin/Debug/SaberTest.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/bin/Debug/data.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/.NETFramework,Version=v4.6.2.AssemblyAttributes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/DesignTimeResolveAssemblyReferences.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/SaberTest.csproj.AssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/SaberTest.csproj.CoreCompileInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/SaberTest.csproj.FileListAbsolute.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/SaberTest.csproj.SuggestedBindingRedirects.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/SaberTest.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SaberTest/obj/Debug/SaberTest.pdb" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/LinkedListTest/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LinkedListTest/obj/Debug/LinkedListTest.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SaberTest/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Test/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Test/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Test/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Test/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Test/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Test/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/SaberTest/project-colors.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/SaberTest/v17/.suo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/SaberTest/v17/TestStore/0/000.testlog" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/SaberTest/v17/TestStore/0/testlog.manifest" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +124,16 @@
       <workItem from="1657279969116" duration="422000" />
       <workItem from="1657280794038" duration="804000" />
       <workItem from="1657289069604" duration="597000" />
+      <workItem from="1657289755279" duration="282000" />
     </task>
+    <task id="LOCAL-00001" summary="Some change">
+      <created>1657289897383</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1657289897383</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
