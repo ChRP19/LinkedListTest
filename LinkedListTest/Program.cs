@@ -10,8 +10,10 @@ namespace LinkedListTest
         static void Main()
         {
             Console.Write("Enter node count: ");
-            var count = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
-            
+            int count;
+            while (!int.TryParse(Console.ReadLine(), out count))
+                Console.Write("Input Error! Enter an integer: ");
+
             // Populate the list with random data
             var initialList = PopulateList(count);
 
