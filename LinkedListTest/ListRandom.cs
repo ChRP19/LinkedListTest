@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace LinkedListTest
 {
@@ -13,20 +15,23 @@ namespace LinkedListTest
         {
             var current = Head;
             using var writer = new StreamWriter(s);
+            
             do
             {
-                var randomId = 0;
-
-                var temp = current.Random;
-
-                while (temp.Previous is not null)
-                {
-                    temp = temp.Previous;
-                    randomId++;
-                }
+                #region randomId
+                // var randomId = 0;
+                //
+                // var temp = current.Random;
+                //
+                // while (temp.Previous is not null)
+                // {
+                //     temp = temp.Previous;
+                //     randomId++;
+                // }
+                #endregion
 
                 writer.WriteLine($"{current.Data}:" +
-                                 $"{randomId}:" +
+                                 $"{current.RandomId}:" +
                                  $"{current.Random.Data}"); //test
                 current = current.Next;
             }
@@ -40,18 +45,21 @@ namespace LinkedListTest
 
             using (var reader = new StreamReader(s))
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                var items = reader.ReadToEnd().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                listNodes.Capacity = items.Count();
+                listIndex.Capacity = items.Count();
+
+                for( int i = 0; i < items.Count(); i++ )
                 {
-                    var items = line.Split(':');
-                    listNodes.Add(new ListNode { Data = items[0] });
-                    listIndex.Add(items[1]);
+                    var splitLine = items.ElementAt(i).Split(':');
+                    listNodes.Add(new ListNode { Data = splitLine[0] });
+                    listIndex.Add(splitLine[1]);
                 }
             }
 
             Head = listNodes[0];
             Tail = listNodes[listNodes.Count - 1];
-            Count = listNodes.Count;
+            Count = listNodes.Count + 1;
 
             var temp = Head;
 

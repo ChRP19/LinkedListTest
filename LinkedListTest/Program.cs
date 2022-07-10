@@ -5,7 +5,7 @@ namespace LinkedListTest
 {
     public class Program
     {
-        private static readonly Random Random = new();
+        private static readonly Random Rand = new();
         
         static void Main()
         {
@@ -54,7 +54,9 @@ namespace LinkedListTest
 
             for (int i = 0; i < count; i++)
             {
-                var randomId = Random.Next(0, count);
+                var randomId = Rand.Next(0, count);
+                current.RandomId = randomId;
+                
                 var randomNode = listSerialization.Head;
                 for (var j = 0; j < randomId; j++)
                 {
@@ -72,7 +74,7 @@ namespace LinkedListTest
 
             for (var i = 0; i < count; i++)
             {
-                var data = Random.Next(0, 100).ToString();
+                var data = Rand.Next(0, 100).ToString();
                 listSerialization.Add(data);
             }
 
