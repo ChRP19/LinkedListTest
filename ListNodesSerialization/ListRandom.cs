@@ -45,7 +45,10 @@ namespace ListNodesSerialization
 
             using (var reader = new StreamReader(s))
             {
-                var items = reader.ReadToEnd().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                
+                var items = reader
+                    .ReadToEnd()
+                    .Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 listNodes.Capacity = items.Count();
                 listIndex.Capacity = items.Count();
 
