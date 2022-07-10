@@ -1,4 +1,4 @@
-﻿namespace LinkedListTest
+﻿namespace ListNodesSerialization
 {
     class ListNode
     {

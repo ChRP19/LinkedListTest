@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace LinkedListTest
+namespace ListNodesSerialization
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedListTest", "LinkedListTest\LinkedListTest.csproj", "{63EFD37F-7542-46DD-AC08-3FB63FA49591}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListNodesSerialization", "ListNodesSerialization\ListNodesSerialization.csproj", "{63EFD37F-7542-46DD-AC08-3FB63FA49591}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
