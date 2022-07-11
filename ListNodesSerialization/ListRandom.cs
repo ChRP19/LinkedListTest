@@ -18,18 +18,6 @@ namespace ListNodesSerialization
             
             do
             {
-                #region randomId
-                // var randomId = 0;
-                //
-                // var temp = current.Random;
-                //
-                // while (temp.Previous is not null)
-                // {
-                //     temp = temp.Previous;
-                //     randomId++;
-                // }
-                #endregion
-
                 writer.WriteLine($"{current.Data}:" +
                                  $"{current.RandomId}:" +
                                  $"{current.Random.Data}"); //test
@@ -45,7 +33,6 @@ namespace ListNodesSerialization
 
             using (var reader = new StreamReader(s))
             {
-                
                 var items = reader
                     .ReadToEnd()
                     .Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -54,7 +41,7 @@ namespace ListNodesSerialization
 
                 for( int i = 0; i < items.Count(); i++ )
                 {
-                    var splitLine = items.ElementAt(i).Split(':');
+                    var splitLine = items[i].Split(':');
                     listNodes.Add(new ListNode { Data = splitLine[0] });
                     listIndex.Add(splitLine[1]);
                 }
@@ -62,27 +49,23 @@ namespace ListNodesSerialization
 
             Head = listNodes[0];
             Tail = listNodes[listNodes.Count - 1];
-            Count = listNodes.Count + 1;
+            Count = listNodes.Count;
 
             var temp = Head;
 
             for (var i = 0; i < listNodes.Count; i++)
             {
                 temp.Next = i + 1 == listNodes.Count ? null : listNodes[i + 1];
-
                 temp.Previous = i == 0 ? null : listNodes[i - 1];
-
                 temp.Random = listNodes[int.Parse(listIndex[i])];
+                
                 temp = temp.Next;
             }
         }
 
         public void Add(string data)
         {
-            var newNode = new ListNode
-            {
-                Data = data
-            };
+            var newNode = new ListNode { Data = data };
 
             if (Head is null)
             {
