@@ -6,13 +6,16 @@ namespace ListNodesSerialization
     public class Program
     {
         private static readonly Random Rand = new();
-        
+
         static void Main()
         {
             Console.Write("Enter node count: ");
             int count;
             while (!int.TryParse(Console.ReadLine(), out count))
-                Console.Write("Input Error! Enter an integer: ");
+            {
+                Console.WriteLine("Input Error! Enter an integer");
+                Console.Write("Enter node count: ");
+            }
 
             // Populate the list with random data
             var initialList = PopulateList(count);
@@ -22,7 +25,7 @@ namespace ListNodesSerialization
 
             // Serialize listRandom
             SerializeList(initialList);
-            
+
             // Deserialize listRandom
             var resultList = DeserializeList();
 
@@ -55,8 +58,9 @@ namespace ListNodesSerialization
             for (int i = 0; i < count; i++)
             {
                 var randomId = Rand.Next(0, count);
+
                 current.RandomId = randomId;
-                
+
                 var randomNode = listSerialization.Head;
                 for (var j = 0; j < randomId; j++)
                 {
@@ -71,6 +75,7 @@ namespace ListNodesSerialization
         private static ListRandom PopulateList(int count)
         {
             var listSerialization = new ListRandom();
+            listSerialization.Count = count;
 
             for (var i = 0; i < count; i++)
             {
