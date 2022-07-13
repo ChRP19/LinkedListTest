@@ -14,52 +14,82 @@ namespace ListNodesSerialization
         public void Serialize(Stream s)
         {
             var current = Head;
+
             using var writer = new StreamWriter(s);
-            
-            do
+            if (current == null)
             {
-                writer.WriteLine($"{current.Data}:" +
-                                 $"{current.RandomId}:" +
-                                 $"{current.Random.Data}"); //test
-                current = current.Next;
+                writer.Write(string.Empty);
             }
-            while (current != null);
+            else
+            {
+                writer.WriteLine(Count);
+                do
+                {
+                    writer.WriteLine(current.Data);
+                    writer.WriteLine(current.RandomId);
+                    
+                    current = current.Next;
+                } while (current != null);
+            }
+            
         }
 
         public void Deserialize(Stream s)
         {
-            var listNodes = new List<ListNode>();
-            var listIndex = new List<string>();
+            var listIndex = new List<int>();
 
-            using (var reader = new StreamReader(s))
+            using var reader = new StreamReader(s);
+            string count = reader.ReadLine() ?? string.Empty;
+
+            if (count == string.Empty || Int32.Parse(count) == 0)
             {
-                var items = reader
-                    .ReadToEnd()
-                    .Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                listNodes.Capacity = items.Count();
-                listIndex.Capacity = items.Count();
-
-                for( int i = 0; i < items.Count(); i++ )
-                {
-                    var splitLine = items[i].Split(':');
-                    listNodes.Add(new ListNode { Data = splitLine[0] });
-                    listIndex.Add(splitLine[1]);
-                }
+                Head = null;
             }
-
-            Head = listNodes[0];
-            Tail = listNodes[listNodes.Count - 1];
-            Count = listNodes.Count;
-
-            var temp = Head;
-
-            for (var i = 0; i < listNodes.Count; i++)
+            else
             {
-                temp.Next = i + 1 == listNodes.Count ? null : listNodes[i + 1];
-                temp.Previous = i == 0 ? null : listNodes[i - 1];
-                temp.Random = listNodes[int.Parse(listIndex[i])];
+                Count = Int32.Parse(count);
+                listIndex.Capacity = Count;
                 
-                temp = temp.Next;
+                ListNode current;
+                for (int i = 0; i < Count; i++)
+                {
+                    current = new ListNode { Data = reader.ReadLine() };
+                    
+                    if (Head is null)
+                    {
+                        Head = current;
+                        Tail = Head;
+                        listIndex.Add(Int32.Parse(reader.ReadLine()));
+                    }
+                    else
+                    {
+                        current.Previous = Tail;
+                        Tail.Next = current;
+                        Tail = current;
+                        listIndex.Add(Int32.Parse(reader.ReadLine()));
+                    }
+                }
+                
+                current = Head;
+                ListNode randomNode = current;
+                int id = 0;
+                for (int i = 0; i < Count; i++)
+                {
+                    if (listIndex[id] == i)
+                    {
+                        current.Random = randomNode;
+                        current.RandomId = listIndex[id];
+                        if (current.Next != null)
+                            current = current.Next;
+                        else
+                            break;
+                        id++;
+                        i = -1;
+                        randomNode = Head;
+                    }
+                    else
+                        randomNode = randomNode.Next;
+                }
             }
         }
 
@@ -93,15 +123,12 @@ namespace ListNodesSerialization
 
             while (isEqual)
             {
+                if (temp1 == null && temp2 == null)
+                    break;
                 isEqual = temp1.Data == temp2.Data;
                 temp1 = temp1.Next;
                 temp2 = temp2.Next;
-                if (temp1 == null && temp2 == null)
-                {
-                    break;
-                }
             }
-
             return isEqual;
         }
     }
