@@ -41,13 +41,13 @@ namespace ListNodesSerialization
             using var reader = new StreamReader(s);
             string count = reader.ReadLine() ?? string.Empty;
 
-            if (count == string.Empty || Int32.Parse(count) == 0)
+            if (count == string.Empty || int.Parse(count) == 0)
             {
                 Head = null;
             }
             else
             {
-                Count = Int32.Parse(count);
+                Count = int.Parse(count);
                 listIndex.Capacity = Count;
                 
                 ListNode current;
@@ -59,14 +59,14 @@ namespace ListNodesSerialization
                     {
                         Head = current;
                         Tail = Head;
-                        listIndex.Add(Int32.Parse(reader.ReadLine()));
+                        listIndex.Add(int.Parse(reader.ReadLine()));
                     }
                     else
                     {
                         current.Previous = Tail;
                         Tail.Next = current;
                         Tail = current;
-                        listIndex.Add(Int32.Parse(reader.ReadLine()));
+                        listIndex.Add(int.Parse(reader.ReadLine()));
                     }
                 }
                 
@@ -75,9 +75,9 @@ namespace ListNodesSerialization
                 int id = 0;
                 for (int i = 0; i < Count; i++)
                 {
-                    if (listIndex[id] == i)
+                    if (listIndex[id] == -1)
                     {
-                        current.Random = randomNode;
+                        current.Random = null;
                         current.RandomId = listIndex[id];
                         if (current.Next != null)
                             current = current.Next;
@@ -88,7 +88,22 @@ namespace ListNodesSerialization
                         randomNode = Head;
                     }
                     else
-                        randomNode = randomNode.Next;
+                    {
+                        if (listIndex[id] == i)
+                        {
+                            current.Random = randomNode;
+                            current.RandomId = listIndex[id];
+                            if (current.Next != null)
+                                current = current.Next;
+                            else
+                                break;
+                            id++;
+                            i = -1;
+                            randomNode = Head;
+                        }
+                        else
+                            randomNode = randomNode.Next;
+                    }
                 }
             }
         }
