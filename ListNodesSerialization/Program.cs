@@ -57,18 +57,26 @@ namespace ListNodesSerialization
 
             for (int i = 0; i < count; i++)
             {
-                var randomId = Rand.Next(0, count);
-
-                current.RandomId = randomId;
-
-                var randomNode = listSerialization.Head;
-                for (var j = 0; j < randomId; j++)
+                var randomId = Rand.Next(-1, count);
+                if (randomId == -1)
                 {
-                    randomNode = randomNode.Next;
+                    current.Random = null;
+                    current.RandomId = randomId;
+                    current = current.Next;
                 }
+                else
+                {
+                    current.RandomId = randomId;
 
-                current.Random = randomNode;
-                current = current.Next;
+                    var randomNode = listSerialization.Head;
+                    for (var j = 0; j < randomId; j++)
+                    {
+                        randomNode = randomNode.Next;
+                    }
+
+                    current.Random = randomNode;
+                    current = current.Next;
+                }
             }
         }
 
