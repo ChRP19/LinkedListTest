@@ -45,15 +45,14 @@ namespace ListNodesSerialization
 
         private static void SerializeList(ListRandom listSerialization)
         {
-            using FileStream fs = new FileStream("data.dat", FileMode.Create);
+            using var fs = new FileStream("data.dat", FileMode.Create);
             listSerialization.Serialize(fs);
         }
         
         private static ListRandom PopulateList(int count)
         {
             Random rand = new();
-            var listSerialization = new ListRandom();
-            listSerialization.Count = count;
+            var listSerialization = new ListRandom { Count = count };
 
             for (var i = 0; i < count; i++)
             {
