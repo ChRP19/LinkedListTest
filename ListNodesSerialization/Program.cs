@@ -19,7 +19,7 @@ namespace ListNodesSerialization
             var initialList = PopulateList(count);
 
             // Reference random nodes
-            initialList.AddRandomReferences(count);
+            initialList.AddRandomReferences();
 
             // Serialize listRandom
             SerializeList(initialList);
