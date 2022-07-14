@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace ListNodesSerialization
 {
@@ -28,7 +27,6 @@ namespace ListNodesSerialization
                     current = current.Next;
                 } while (current != null);
             }
-            
         }
 
         public void Deserialize(Stream s)
@@ -42,7 +40,7 @@ namespace ListNodesSerialization
             {
                 Count = int.Parse(count);
                 listIndex.Capacity = Count;
-                
+
                 // Restoring the list of nodes
                 ListNode current;
                 for (int i = 0; i < Count; i++)
@@ -70,32 +68,21 @@ namespace ListNodesSerialization
                 int id = 0;
                 for (int i = 0; i < Count; i++)
                 {
-                    if (listIndex[id] == -1)
+                    if (listIndex[id] != -1 && listIndex[id] != i)
                     {
-                        current.Random = null;
-                        current.RandomId = listIndex[id];
-                        if (current.Next != null)
-                            current = current.Next;
-                        else
-                            break;
-                        id++;
-                        i = -1;
-                        randomNode = Head;
-                    }
-                    else if (listIndex[id] == i)
-                    {
-                        current.Random = randomNode;
-                        current.RandomId = listIndex[id];
-                        if (current.Next != null)
-                            current = current.Next;
-                        else
-                            break;
-                        id++;
-                        i = -1;
-                        randomNode = Head;
-                    }
-                    else
                         randomNode = randomNode.Next;
+                        continue;
+                    }
+
+                    current.Random = listIndex[id] == i ? randomNode : null;
+                    current.RandomId = listIndex[id];
+                    if (current.Next != null)
+                        current = current.Next;
+                    else
+                        break;
+                    id++;
+                    i = -1;
+                    randomNode = Head;
                 }
             }
         }
@@ -123,7 +110,7 @@ namespace ListNodesSerialization
             if (obj is not ListRandom other)
                 return false;
 
-            var temp1 = this.Head;
+            var temp1 = Head;
             var temp2 = other.Head;
 
             bool isEqual = true;
@@ -136,17 +123,18 @@ namespace ListNodesSerialization
                 temp1 = temp1.Next;
                 temp2 = temp2.Next;
             }
+
             return isEqual;
         }
 
-        public void AddRandomReferences(int count)
+        public void AddRandomReferences()
         {
             Random rand = new();
-            ListNode current = this.Head;
+            var current = Head;
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                var randomId = rand.Next(-1, count);
+                var randomId = rand.Next(-1, Count);
                 if (randomId == -1)
                 {
                     current.Random = null;
@@ -157,7 +145,7 @@ namespace ListNodesSerialization
                 {
                     current.RandomId = randomId;
 
-                    var randomNode = this.Head;
+                    var randomNode = Head;
                     for (var j = 0; j < randomId; j++)
                     {
                         randomNode = randomNode.Next;
