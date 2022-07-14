@@ -5,8 +5,6 @@ namespace ListNodesSerialization
 {
     public class Program
     {
-        private static readonly Random Rand = new();
-
         static void Main()
         {
             Console.Write("Enter node count: ");
@@ -21,7 +19,7 @@ namespace ListNodesSerialization
             var initialList = PopulateList(count);
 
             // Reference random nodes
-            AddRandomReferences(initialList, count);
+            initialList.AddRandomReferences(count);
 
             // Serialize listRandom
             SerializeList(initialList);
@@ -50,44 +48,16 @@ namespace ListNodesSerialization
             using FileStream fs = new FileStream("data.dat", FileMode.Create);
             listSerialization.Serialize(fs);
         }
-
-        private static void AddRandomReferences(ListRandom listSerialization, int count)
-        {
-            ListNode current = listSerialization.Head;
-
-            for (int i = 0; i < count; i++)
-            {
-                var randomId = Rand.Next(-1, count);
-                if (randomId == -1)
-                {
-                    current.Random = null;
-                    current.RandomId = randomId;
-                    current = current.Next;
-                }
-                else
-                {
-                    current.RandomId = randomId;
-
-                    var randomNode = listSerialization.Head;
-                    for (var j = 0; j < randomId; j++)
-                    {
-                        randomNode = randomNode.Next;
-                    }
-
-                    current.Random = randomNode;
-                    current = current.Next;
-                }
-            }
-        }
-
+        
         private static ListRandom PopulateList(int count)
         {
+            Random rand = new();
             var listSerialization = new ListRandom();
             listSerialization.Count = count;
 
             for (var i = 0; i < count; i++)
             {
-                var data = Rand.Next(0, 100).ToString();
+                var data = rand.Next(0, 100).ToString();
                 listSerialization.Add(data);
             }
 

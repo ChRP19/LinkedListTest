@@ -17,9 +17,7 @@ namespace ListNodesSerialization
 
             using var writer = new StreamWriter(s);
             if (current == null)
-            {
                 writer.Write(string.Empty);
-            }
             else
             {
                 writer.WriteLine(Count);
@@ -27,7 +25,6 @@ namespace ListNodesSerialization
                 {
                     writer.WriteLine(current.Data);
                     writer.WriteLine(current.RandomId);
-                    
                     current = current.Next;
                 } while (current != null);
             }
@@ -41,20 +38,17 @@ namespace ListNodesSerialization
             using var reader = new StreamReader(s);
             string count = reader.ReadLine() ?? string.Empty;
 
-            if (count == string.Empty || int.Parse(count) == 0)
-            {
-                Head = null;
-            }
-            else
+            if (count != string.Empty && int.Parse(count) != 0)
             {
                 Count = int.Parse(count);
                 listIndex.Capacity = Count;
                 
+                // Restoring the list of nodes
                 ListNode current;
                 for (int i = 0; i < Count; i++)
                 {
                     current = new ListNode { Data = reader.ReadLine() };
-                    
+
                     if (Head is null)
                     {
                         Head = current;
@@ -69,7 +63,8 @@ namespace ListNodesSerialization
                         listIndex.Add(int.Parse(reader.ReadLine()));
                     }
                 }
-                
+
+                // Restoring links to a random nodes
                 current = Head;
                 ListNode randomNode = current;
                 int id = 0;
@@ -87,23 +82,20 @@ namespace ListNodesSerialization
                         i = -1;
                         randomNode = Head;
                     }
-                    else
+                    else if (listIndex[id] == i)
                     {
-                        if (listIndex[id] == i)
-                        {
-                            current.Random = randomNode;
-                            current.RandomId = listIndex[id];
-                            if (current.Next != null)
-                                current = current.Next;
-                            else
-                                break;
-                            id++;
-                            i = -1;
-                            randomNode = Head;
-                        }
+                        current.Random = randomNode;
+                        current.RandomId = listIndex[id];
+                        if (current.Next != null)
+                            current = current.Next;
                         else
-                            randomNode = randomNode.Next;
+                            break;
+                        id++;
+                        i = -1;
+                        randomNode = Head;
                     }
+                    else
+                        randomNode = randomNode.Next;
                 }
             }
         }
@@ -145,6 +137,36 @@ namespace ListNodesSerialization
                 temp2 = temp2.Next;
             }
             return isEqual;
+        }
+
+        public void AddRandomReferences(int count)
+        {
+            Random rand = new();
+            ListNode current = this.Head;
+
+            for (int i = 0; i < count; i++)
+            {
+                var randomId = rand.Next(-1, count);
+                if (randomId == -1)
+                {
+                    current.Random = null;
+                    current.RandomId = randomId;
+                    current = current.Next;
+                }
+                else
+                {
+                    current.RandomId = randomId;
+
+                    var randomNode = this.Head;
+                    for (var j = 0; j < randomId; j++)
+                    {
+                        randomNode = randomNode.Next;
+                    }
+
+                    current.Random = randomNode;
+                    current = current.Next;
+                }
+            }
         }
     }
 }
