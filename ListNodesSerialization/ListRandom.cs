@@ -16,31 +16,30 @@ namespace ListNodesSerialization
 
             using var writer = new StreamWriter(s);
             if (current == null)
-                writer.Write(string.Empty);
-            else
             {
-                writer.WriteLine(Count);
-                do
-                {
-                    writer.WriteLine(current.Data);
-                    writer.WriteLine(current.RandomId);
-                    current = current.Next;
-                } while (current != null);
+                writer.Write(string.Empty);
+                return;
             }
+
+            writer.WriteLine(Count);
+            do
+            {
+                writer.WriteLine(current.Data);
+                writer.WriteLine(current.RandomId);
+                current = current.Next;
+            } while (current != null);
         }
+
 
         public void Deserialize(Stream s)
         {
-            var listIndex = new List<int>();
-
             using var reader = new StreamReader(s);
             var count = reader.ReadLine() ?? string.Empty;
 
             if (count == string.Empty || int.Parse(count) == 0) return;
-            
-            Count = int.Parse(count);
-            listIndex.Capacity = Count;
 
+            Count = int.Parse(count);
+            
             // Restoring the list of nodes
             ListNode current;
             for (var i = 0; i < Count; i++)
@@ -51,36 +50,32 @@ namespace ListNodesSerialization
                 {
                     Head = current;
                     Tail = Head;
-                    listIndex.Add(int.Parse(reader.ReadLine()!));
+                    Head.RandomId = int.Parse(reader.ReadLine());
                 }
                 else
                 {
                     current.Previous = Tail;
                     Tail.Next = current;
                     Tail = current;
-                    listIndex.Add(int.Parse(reader.ReadLine()!));
+                    current.RandomId = int.Parse(reader.ReadLine());
                 }
             }
 
             // Restoring links to a random nodes
             current = Head;
             var randomNode = current;
-            var id = 0;
             for (var i = 0; i < Count; i++)
             {
-                if (listIndex[id] != -1 && listIndex[id] != i)
+                if (current.RandomId != -1 && current.RandomId  != i)
                 {
                     randomNode = randomNode.Next;
                     continue;
                 }
-
-                current.Random = listIndex[id] == i ? randomNode : null;
-                current.RandomId = listIndex[id];
+                current.Random = current.RandomId  == i ? randomNode : null;
                 if (current.Next == null)
                     break;
                 current = current.Next;
-                id++;
-                i = -1;
+                i = -1; // Restart loop
                 randomNode = Head;
             }
         }
@@ -111,7 +106,7 @@ namespace ListNodesSerialization
             var temp1 = Head;
             var temp2 = other.Head;
 
-            bool isEqual = true;
+            var isEqual = true;
 
             while (isEqual)
             {
@@ -144,10 +139,7 @@ namespace ListNodesSerialization
                     current.RandomId = randomId;
 
                     var randomNode = Head;
-                    for (var j = 0; j < randomId; j++)
-                    {
-                        randomNode = randomNode.Next;
-                    }
+                    for (var j = 0; j < randomId; j++) randomNode = randomNode.Next;
 
                     current.Random = randomNode;
                     current = current.Next;
