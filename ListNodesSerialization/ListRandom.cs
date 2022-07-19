@@ -25,10 +25,7 @@ namespace ListNodesSerialization
             do
             {
                 writer.WriteLine(current.Data);
-                if (current.Random != null)
-                    writer.WriteLine(current.Random.Data.GetHashCode());
-                else
-                    writer.WriteLine(-1);
+                writer.WriteLine(current.Random?.Data.GetHashCode());
                 
                 current = current.Next;
             } while (current != null);
@@ -43,7 +40,7 @@ namespace ListNodesSerialization
             if (count == string.Empty || int.Parse(count) == 0) return;
 
             Count = int.Parse(count);
-            var hashArray = new int[Count];
+            var hashArray = new int?[Count];
             
             // Restoring the list of nodes
             ListNode current;
@@ -55,14 +52,14 @@ namespace ListNodesSerialization
                 {
                     Head = current;
                     Tail = Head;
-                    hashArray[i] = int.Parse(reader.ReadLine()!);
+                    hashArray[i] = int.TryParse(reader.ReadLine(), out var hash) ? hash : null;
                 }
                 else
                 {
                     current.Previous = Tail;
                     Tail.Next = current;
                     Tail = current;
-                    hashArray[i] = int.Parse(reader.ReadLine()!);
+                    hashArray[i] = int.TryParse(reader.ReadLine(), out var hash) ? hash : null;
                 }
             }
 
@@ -73,7 +70,7 @@ namespace ListNodesSerialization
             {
                 do
                 {
-                    if (hashArray[i] == randomNode.Data.GetHashCode() || hashArray[i] == -1)
+                    if (hashArray[i] == randomNode.Data.GetHashCode() || hashArray[i] == null)
                     {
                         current.Random = hashArray[i] == randomNode.Data.GetHashCode() ? randomNode : null;
                         current = current.Next;
