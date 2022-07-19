@@ -37,15 +37,13 @@ namespace ListNodesSerialization
 
         public void Deserialize(Stream s)
         {
-            var hashList = new List<int>();
-            
             using var reader = new StreamReader(s);
             var count = reader.ReadLine() ?? string.Empty;
 
             if (count == string.Empty || int.Parse(count) == 0) return;
 
             Count = int.Parse(count);
-            hashList.Capacity = Count;
+            var hashArray = new int[Count];
             
             // Restoring the list of nodes
             ListNode current;
@@ -57,14 +55,14 @@ namespace ListNodesSerialization
                 {
                     Head = current;
                     Tail = Head;
-                    hashList.Add(int.Parse(reader.ReadLine()));
+                    hashArray[i] = int.Parse(reader.ReadLine()!);
                 }
                 else
                 {
                     current.Previous = Tail;
                     Tail.Next = current;
                     Tail = current;
-                    hashList.Add(int.Parse(reader.ReadLine()));
+                    hashArray[i] = int.Parse(reader.ReadLine()!);
                 }
             }
 
@@ -75,9 +73,9 @@ namespace ListNodesSerialization
             {
                 do
                 {
-                    if (hashList[i] == randomNode.Data.GetHashCode() || hashList[i] == -1)
+                    if (hashArray[i] == randomNode.Data.GetHashCode() || hashArray[i] == -1)
                     {
-                        current.Random = hashList[i] == randomNode.Data.GetHashCode() ? randomNode : null;
+                        current.Random = hashArray[i] == randomNode.Data.GetHashCode() ? randomNode : null;
                         current = current.Next;
                         break;
                     }
@@ -121,7 +119,7 @@ namespace ListNodesSerialization
             {
                 if (temp1 == null && temp2 == null)
                     break;
-                isEqual = temp1.Data.GetHashCode() == temp2.Data.GetHashCode() &&
+                isEqual = temp1!.Data.GetHashCode() == temp2.Data.GetHashCode() &&
                           temp1.Random?.Data.GetHashCode() == temp2.Random?.Data.GetHashCode();
                 temp1 = temp1.Next;
                 temp2 = temp2.Next;
