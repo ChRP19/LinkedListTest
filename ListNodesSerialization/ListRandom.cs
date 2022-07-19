@@ -25,7 +25,11 @@ namespace ListNodesSerialization
             do
             {
                 writer.WriteLine(current.Data);
-                writer.WriteLine(current.RandomId);
+                if (current.Random != null)
+                    writer.WriteLine(current.Random.Data.GetHashCode());
+                else
+                    writer.WriteLine(-1);
+                
                 current = current.Next;
             } while (current != null);
         }
@@ -33,12 +37,15 @@ namespace ListNodesSerialization
 
         public void Deserialize(Stream s)
         {
+            var hashList = new List<int>();
+            
             using var reader = new StreamReader(s);
             var count = reader.ReadLine() ?? string.Empty;
 
             if (count == string.Empty || int.Parse(count) == 0) return;
 
             Count = int.Parse(count);
+            hashList.Capacity = Count;
             
             // Restoring the list of nodes
             ListNode current;
@@ -50,14 +57,14 @@ namespace ListNodesSerialization
                 {
                     Head = current;
                     Tail = Head;
-                    Head.RandomId = int.Parse(reader.ReadLine());
+                    hashList.Add(int.Parse(reader.ReadLine()));
                 }
                 else
                 {
                     current.Previous = Tail;
                     Tail.Next = current;
                     Tail = current;
-                    current.RandomId = int.Parse(reader.ReadLine());
+                    hashList.Add(int.Parse(reader.ReadLine()));
                 }
             }
 
@@ -66,16 +73,18 @@ namespace ListNodesSerialization
             var randomNode = current;
             for (var i = 0; i < Count; i++)
             {
-                if (current.RandomId != -1 && current.RandomId  != i)
+                do
                 {
+                    if (hashList[i] == randomNode.Data.GetHashCode() || hashList[i] == -1)
+                    {
+                        current.Random = hashList[i] == randomNode.Data.GetHashCode() ? randomNode : null;
+                        current = current.Next;
+                        break;
+                    }
+
                     randomNode = randomNode.Next;
-                    continue;
-                }
-                current.Random = current.RandomId  == i ? randomNode : null;
-                if (current.Next == null)
-                    break;
-                current = current.Next;
-                i = -1; // Restart loop
+                } while (randomNode != null);
+
                 randomNode = Head;
             }
         }
@@ -112,7 +121,8 @@ namespace ListNodesSerialization
             {
                 if (temp1 == null && temp2 == null)
                     break;
-                isEqual = temp1.Data == temp2.Data;
+                isEqual = temp1.Data.GetHashCode() == temp2.Data.GetHashCode() &&
+                          temp1.Random?.Data.GetHashCode() == temp2.Random?.Data.GetHashCode();
                 temp1 = temp1.Next;
                 temp2 = temp2.Next;
             }
@@ -131,13 +141,10 @@ namespace ListNodesSerialization
                 if (randomId == -1)
                 {
                     current.Random = null;
-                    current.RandomId = randomId;
                     current = current.Next;
                 }
                 else
                 {
-                    current.RandomId = randomId;
-
                     var randomNode = Head;
                     for (var j = 0; j < randomId; j++) randomNode = randomNode.Next;
 
