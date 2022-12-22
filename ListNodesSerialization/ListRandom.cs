@@ -12,29 +12,24 @@ namespace ListNodesSerialization
 
         public void Serialize(Stream s)
         {
-            var listNodes = new ListNode[Count];
+            var listNodes = new Dictionary<ListNode, int>();
             var current = Head;
 
-            using var writer = new StreamWriter(s);
-            if (current == null)
-            {
-                writer.Write(string.Empty);
-                return;
-            }
+            using var writer = new BinaryWriter(s);
 
             for (int i = 0; i < Count; i++)
             {
-                listNodes[i] = current;
+                listNodes.Add(current, i);
                 current = current.Next;
             }
             
             current = Head;
-            writer.WriteLine(Count);
+            writer.Write(Count);
             for (int i = 0; i < Count; i++)
             {
-                writer.WriteLine(current.Data);
-                int randomIndex = current.Random is null ? -1 : Array.IndexOf(listNodes, current.Random);
-                writer.WriteLine(randomIndex);
+                writer.Write(current.Data);
+                var randomIndex = current.Random is null ? -1 : listNodes[current.Random];
+                writer.Write(randomIndex);
 
                 current = current.Next;
             } 
@@ -43,27 +38,24 @@ namespace ListNodesSerialization
 
         public void Deserialize(Stream s)
         {
-            using var reader = new StreamReader(s);
-            var count = reader.ReadLine() ?? string.Empty;
-
-            if (count == string.Empty || int.Parse(count) == 0) return;
-
-            Count = int.Parse(count);
+            using var reader = new BinaryReader(s);
+            
+            Count = reader.ReadInt32();
             var listNodes = new ListNode[Count];
             var randomIndexes = new int[Count];
             
             // Restoring the list of nodes
             ListNode current;
-            for (var i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                current = new ListNode { Data = reader.ReadLine() };
+                current = new ListNode { Data = reader.ReadString() };
 
                 if (Head is null)
                 {
                     Head = current;
                     Tail = Head;
                     listNodes[i] = current;
-                    randomIndexes[i] = int.Parse(reader.ReadLine()!);
+                    randomIndexes[i] = reader.ReadInt32();
                 }
                 else
                 {
@@ -71,15 +63,15 @@ namespace ListNodesSerialization
                     Tail.Next = current;
                     Tail = current;
                     listNodes[i] = current;
-                    randomIndexes[i] = int.Parse(reader.ReadLine()!);
+                    randomIndexes[i] = reader.ReadInt32();
                 }
             }
 
             // Restoring links to a random nodes
             current = Head;
-            for (var i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                int randomIndex = randomIndexes[i];
+                var randomIndex = randomIndexes[i];
                 if (randomIndex != -1)
                 {
                     current.Random = listNodes[randomIndex];
@@ -94,7 +86,6 @@ namespace ListNodesSerialization
 
             if (Head is null)
             {
-                newNode.Data = "Head";
                 Head = newNode;
                 Tail = Head;
             }
@@ -134,7 +125,7 @@ namespace ListNodesSerialization
             Random rand = new();
             var current = Head;
 
-            for (var i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 var randomId = rand.Next(-1, Count);
                 if (randomId == -1)
@@ -145,7 +136,7 @@ namespace ListNodesSerialization
                 else
                 {
                     var randomNode = Head;
-                    for (var j = 0; j < randomId; j++) randomNode = randomNode.Next;
+                    for (int j = 0; j < randomId; j++) randomNode = randomNode.Next;
 
                     current.Random = randomNode;
                     current = current.Next;
